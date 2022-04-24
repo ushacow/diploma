@@ -1,0 +1,59 @@
+<style>
+#block_container
+{
+    display: flex; 
+    flex-wrap: wrap;
+}
+#block_container > div {
+    flex-basis: 50%;
+}
+
+</style>
+
+<div id="block_container">
+<div>
+<h3>Weather in Moscow</h3>
+<img src="static/sun.png" width="40px" height="40px">
+<form action="">
+    <label>
+      Start date:
+      <input type="date" name="start_date" value="{{ start_date }}">
+    </label>
+    <label>
+        End date:
+        <input type="date" name="end_date" value="{{ end_date }}">
+      </label>
+  
+    <div><p>
+        <button type="submit" name="action" value="filter">Apply date filters</button>
+        <button type="submit" name="action" value="load">Download data</button>
+    </p></div>
+    
+</form>
+{% if weather_list %}
+    <table border="1px">
+    <tr>
+        <th>Date</th>
+        <th>Overall</th>
+        <th>Wind</th>
+        <th>Min. Temperature</th>
+        <th>Max. Temperature</th>
+        <th>The Temperature</th>
+    </tr>
+    {% for weather in weather_list %}
+    <tr>
+        <td>{{ weather.applicable_date }}</td>
+        <td>{{ weather.weather_state_name }}</td>
+        <td>{{ weather.wind_direction_compass }}</td>
+        <td>{{ weather.min_temp }}</td>
+        <td>{{ weather.max_temp }}</td>
+        <td>{{ weather.the_temp }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No weathers are available.</p>
+{% endif %}
+</div>
+
+</div>
